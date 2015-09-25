@@ -31,6 +31,9 @@
 		div.tooltip{
 			padding: 6px;
 			background: white;
+			visibility: hidden;
+			position: absolute;
+			z-index: 10;
 		}
 		p.tooltip-text{
 			margin: 0px;
@@ -45,7 +48,7 @@
 
 	<div id="map"></div>
 
-	<div class="tooltip" style="position: absolute; z-index: 10; top: 100px; left: 100px">
+	<div class="tooltip">
 		<p class="tooltip-text" id="title">This is the title</p>
 		<p class="tooltip-text" id="price">This is the price</p>
 	</div>
