@@ -15,9 +15,9 @@
 		}
 
 		circle {
-			fill-opacity: 0;
-			stroke: red;
-			stroke-width: 5px;
+			fill-opacity: .3;
+			fill: red;
+			stroke-width: 0px;
 		}
 	</style>
 
@@ -70,7 +70,6 @@
 
 			circles.enter()
 				.append("circle")
-			    .attr("r", 10);
 
 			// function to update the data
 			function update() {
@@ -93,7 +92,8 @@
 			    // update circle position and size
 			    circles
 			    	.attr("cx", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).x; })
-			    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; });
+			    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; })
+	    			.attr("r", function(d) { return Math.pow(d.properties.price,.3); });
 			};
 
 			// call function to 
