@@ -31,24 +31,10 @@
 		div.tooltip{
 			padding: 6px;
 			background: white;
-			visibility: hidden;
-			position: absolute;
-			z-index: 10;
 		}
 		p.tooltip-text{
 			margin: 0px;
 			padding: 0px;
-		}
-
-		div.menu{
-			position: fixed;
-			margin: 0px;
-			padding: 10px;
-			top: 0px;
-			right: 0px;
-			width: 250px;
-			height: 500px;
-			background: rgba(255,255,255,.8);
 		}
 	</style>
 
@@ -59,19 +45,10 @@
 
 	<div id="map"></div>
 
-	<div class="tooltip">
+	<div class="tooltip" style="position: absolute; z-index: 10; top: 100px; left: 100px">
 		<p class="tooltip-text" id="title">This is the title</p>
 		<p class="tooltip-text" id="price">This is the price</p>
 	</div>
-
-	<div class="menu">
-		<p><h4>DMC Web Stack</h4></p>
-		<form>
-			<p><input id="heatmap" type="checkbox" onclick="toggleCheck(id)">Heat Map</p>
-			<p><input name="updateButton" type="button" value="Update Data" onclick="updateData()"></p>
-		</form>
-	</div>
-
 
 	<script type="text/javascript">
 
