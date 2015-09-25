@@ -9,6 +9,9 @@
 		body {
 		    padding: 0;
 		    margin: 0;
+		    font-family: Helvetica, Arial, sans-serif;
+			font-size: 12px;
+			line-height: 18px;
 		}
 		html, body, #map {
 		    height: 100%;
@@ -18,6 +21,16 @@
 			fill-opacity: .3;
 			fill: red;
 			stroke-width: 0px;
+		}
+
+		div.tooltip{
+		  padding: 6px;
+		  background: white;
+		}
+
+		p.tooltip{
+		  margin: 0px;
+		  padding: 0px;
 		}
 	</style>
 
@@ -29,6 +42,19 @@
 	<div id="map"></div>
 
 	<script type="text/javascript">
+
+
+		var tooltip = d3.select("body")
+			.append("div")
+			.attr("class", "tooltip")
+			.style("position", "absolute")
+			.style("z-index", "10")
+			.style("visibility", "hidden");
+			// .text("a simple tooltip");
+
+		var tooltip_title = tooltip.append("p").attr("class", "tooltip")
+		var tooltip_text = tooltip.append("p").attr("class", "tooltip")
+
 
 		var map = L.map('map').setView([22.539029, 114.062076], 16);
 
@@ -93,7 +119,14 @@
 			    circles
 			    	.attr("cx", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).x; })
 			    	.attr("cy", function(d) { return projectPoint(d.geometry.coordinates[0], d.geometry.coordinates[1]).y; })
-	    			.attr("r", function(d) { return Math.pow(d.properties.price,.3); });
+	    			.attr("r", function(d) { return Math.pow(d.properties.price,.3); })
+					.on("mouseover", function(d){
+						tooltip.style("visibility", "visible");
+						tooltip_title.text(d.properties.name);
+						tooltip_text.text("Price: " + d.properties.price);
+					})
+					.on("mousemove", function(){return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+					.on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 			};
 
 			// call function to 
