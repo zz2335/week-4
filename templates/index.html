@@ -115,7 +115,18 @@
 		var path = d3.geo.path().projection(transform);
 
 		function updateData(){
-		  	d3.json("/getData/", function(data) {
+
+			var mapBounds = map.getBounds();
+			var lat1 = mapBounds["_southWest"]["lat"];
+			var lat2 = mapBounds["_northEast"]["lat"];
+			var lng1 = mapBounds["_southWest"]["lng"];
+			var lng2 = mapBounds["_northEast"]["lng"];
+
+			request = "/getData?lat1=" + lat1 + "&lat2=" + lat2 + "&lng1=" + lng1 + "&lng2=" + lng2
+
+			console.log(request);
+
+		  	d3.json(request, function(data) {
 
 				//create placeholder circle geometry and bind it to data
 				var circles = g.selectAll("circle").data(data.features);
