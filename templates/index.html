@@ -50,6 +50,11 @@
 			height: 500px;
 			background: rgba(255,255,255,.8);
 		}
+
+		em{
+		  color: red;
+		  font-weight: bold;
+		}
 	</style>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -69,12 +74,20 @@
 		<form>
 			<p><input id="heatmap" type="checkbox">Heat Map</p>
 			<p><input type="button" value="Update Data" onclick="updateData()"></p>
+			<p>Status: <em id="message"></em></p>
 		</form>
 	</div>
 
 
 	<script type="text/javascript">
 
+		var eventOutputContainer = document.getElementById("message");
+		var eventSrc = new EventSource("/eventSource");
+
+		eventSrc.onmessage = function(e) {
+			console.log(e);
+			eventOutputContainer.innerHTML = e.data;
+		};
 
 		var tooltip = d3.select("div.tooltip");
 		var tooltip_title = d3.select("#title");
