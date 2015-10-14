@@ -19,27 +19,27 @@
 
 		/*EXPERIMENT WITH DIFFERENT STYLING FOR THE CIRCLES AND WHAT HAPPENS WHEN THE MOUSE HOVERS OVER THEM*/
 		circle {
-			fill-opacity: .3;
-			fill: red;
-			stroke-width: 0px;
+			fill-opacity: .2;
+			fill: blue;
+			stroke-width: 1px;
 		}
 		circle:hover {
-		  	stroke: black;
-		  	stroke-width: 2px;
+		  	stroke: red;
+		  	stroke-width: 3px;
 		  	cursor: crosshair;
 		}
 
 		/*EXPERIMENT WITH YOUR OWN STYLING RULES TO CHANGE THE APPEARANCE OF THE TOOLTIP, THE MENU, AND THE MESSAGE TEXT*/
 		div.tooltip{
 			padding: 6px;
-			background: white;
+			background: darkgray;
 			visibility: hidden;
 			position: absolute;
 			z-index: 10;
 		}
 		p.tooltip-text{
-			margin: 0px;
-			padding: 0px;
+			margin: 1px;
+			padding: 1px;
 		}
 
 		div.menu{
@@ -70,12 +70,15 @@
 	<div class="tooltip">
 		<p class="tooltip-text" id="title">This is the title</p>
 		<p class="tooltip-text" id="price">This is the price</p>
+		<p class="tooltip-text" id="latitude">This is the latitude</p>
+		<p class="tooltip-text" id="longitude">This is the longitude</p>
 	</div>
 
 	<!-- EXPERIMENT WITH OTHER FORM ELEMENTS, AND ADD SOME TEXT TO THE MENU TO EXPLAIN WHAT IS HAPPENING ON THE SITE -->
 	<div class="menu">
 		<p><h4>DMC Web Stack</h4></p>
 		<form>
+			<p>Search for houses</p>
 			<p><input id="heatmap" type="checkbox">Heat Map</p>
 			<p><input type="button" value="Update Data" onclick="updateData()"></p>
 			<p>Status: <em id="message"></em></p>
@@ -97,6 +100,8 @@
 		var tooltip = d3.select("div.tooltip");
 		var tooltip_title = d3.select("#title");
 		var tooltip_price = d3.select("#price");
+		var tooltip_latitude = d3.select("#latitude");
+		var tooltip_longitude = d3.select("#longitude");
 
 
 		var map = L.map('map').setView([22.539029, 114.062076], 16);
@@ -155,6 +160,8 @@
 						tooltip.style("visibility", "visible");
 						tooltip_title.text(d.properties.name);
 						tooltip_price.text("Price: " + d.properties.price);
+						tooltip_latitude.text("Latitude: " + d.geometry.coordinates[0]);
+						tooltip_longitude.text("Longitude: " + d.geometry.coordinates[1]);
 					})
 					.on("mousemove", function(){
 						tooltip.style("top", (d3.event.pageY-10)+"px")
